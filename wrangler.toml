@@ -8,12 +8,10 @@ pages_build_output_dir = "dist"
 [vars]
 RESEND_FROM = "Spawn <onboarding@resend.dev>"
 
-# Run `wrangler d1 create spawn-subscribers` and paste the printed
-# database_id here, then uncomment this block to enable the signup backend.
-# [[d1_databases]]
-# binding = "DB"
-# database_name = "spawn-subscribers"
-# database_id = "REPLACE_WITH_D1_DATABASE_ID"
+[[d1_databases]]
+binding = "DB"
+database_name = "spawn-subscribers"
+database_id = "748c282e-edcd-4a12-8df0-4a11a4072abf"
 
 # Secrets — set with `wrangler pages secret put <NAME>`, never committed here:
 #   RESEND_API_KEY        (required) Resend API key used to send email.
