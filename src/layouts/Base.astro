@@ -1,0 +1,253 @@
+---
+import Nav from '../components/Nav.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'SPAWN — Game Engine Written in Rust',
+  description = 'Build games without fighting your tools. Spawn gives you the foundation — fast, safe, and completely yours.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@300;400;500&family=Syne:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer is:inline></script>
+  </head>
+  <body>
+    <svg width="0" height="0" style="position:absolute">
+      <defs>
+        <symbol id="si" viewBox="0 0 52 52">
+          <polygon points="26,2 50,14 50,38 26,50 2,38 2,14" fill="none" stroke="#C1440E" stroke-width="2.5"></polygon>
+          <polygon points="26,10 42,18 42,34 26,42 10,34 10,18" fill="#C1440E"></polygon>
+          <polygon points="26,18 36,23 36,29 26,34 16,29 16,23" fill="#080808"></polygon>
+          <line x1="26" y1="2" x2="26" y2="10" stroke="#C1440E" stroke-width="2.5"></line>
+          <line x1="50" y1="14" x2="42" y2="18" stroke="#C1440E" stroke-width="2.5"></line>
+          <line x1="50" y1="38" x2="42" y2="34" stroke="#C1440E" stroke-width="2.5"></line>
+          <line x1="26" y1="50" x2="26" y2="42" stroke="#C1440E" stroke-width="2.5"></line>
+          <line x1="2" y1="38" x2="10" y2="34" stroke="#C1440E" stroke-width="2.5"></line>
+          <line x1="2" y1="14" x2="10" y2="18" stroke="#C1440E" stroke-width="2.5"></line>
+        </symbol>
+      </defs>
+    </svg>
+
+    <div style="background:#080808; min-height:100vh;">
+      <Nav />
+      <slot />
+      <footer>
+        <div class="footer-logo">
+          <svg width="20" height="20"><use href="#si"></use></svg>
+          <div class="footer-logo-text">SPAWN</div>
+        </div>
+        <div class="footer-copy">© 2026 Altug Tatlisu — spawnengine.io</div>
+      </footer>
+    </div>
+
+    <script is:inline>
+      function showPage(name) {
+        document.querySelectorAll('.page-content').forEach((p) => p.classList.remove('active'));
+        document.getElementById('page-' + name).classList.add('active');
+        window.scrollTo(0, 0);
+      }
+      window.showPage = showPage;
+      document.addEventListener('click', (e) => {
+        const el = e.target.closest('[data-page]');
+        if (el) {
+          e.preventDefault();
+          showPage(el.dataset.page);
+        }
+      });
+
+      // "Get Notified" buttons jump home and focus the signup field.
+      document.querySelectorAll('[data-notify]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          showPage('home');
+          const input = document.querySelector('#notify-form .email-input');
+          if (input) {
+            input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(() => input.focus(), 350);
+          }
+        });
+      });
+
+      const form = document.getElementById('notify-form');
+      const msg = document.getElementById('notify-msg');
+      if (form && msg) {
+        const setMsg = (text, ok) => {
+          msg.textContent = text;
+          msg.className = 'notify-msg ' + (ok ? 'notify-ok' : 'notify-err');
+        };
+        const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const data = new FormData(form);
+          const email = String(data.get('email') || '').trim();
+          const company = String(data.get('company') || '');
+          const token = String(data.get('cf-turnstile-response') || '');
+          if (!EMAIL_RE.test(email)) {
+            setMsg('Enter a valid email address.', false);
+            return;
+          }
+          const btn = form.querySelector('button');
+          const label = btn.textContent;
+          btn.disabled = true;
+          btn.textContent = '···';
+          try {
+            const res = await fetch('/api/subscribe', {
+              method: 'POST',
+              headers: { 'content-type': 'application/json' },
+              body: JSON.stringify({ email, company, token }),
+            });
+            const j = await res.json().catch(() => ({}));
+            if (res.ok) {
+              setMsg(
+                j.already
+                  ? "You're already on the list."
+                  : "✓ You're on the list. Check your inbox.",
+                true
+              );
+              form.reset();
+            } else {
+              setMsg(j.error || 'Something went wrong. Try again.', false);
+            }
+            if (window.turnstile) window.turnstile.reset();
+          } catch {
+            setMsg('Network error. Try again.', false);
+          } finally {
+            btn.disabled = false;
+            btn.textContent = label;
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --rust: #C1440E;
+    --rust2: #E05520;
+    --bg: #080808;
+    --bg2: #0F0F0F;
+    --bg3: #161616;
+    --text: #EFEFEF;
+    --muted: #777;
+    --dim: #333;
+  }
+
+  body { background: var(--bg); color: var(--text); font-family: 'Syne', sans-serif; }
+
+  nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 24px 48px; position: sticky; top: 0; z-index: 100;
+    background: rgba(8,8,8,0.97); border-bottom: 1px solid #1a1a1a;
+  }
+
+  .logo { display: flex; align-items: center; gap: 14px; }
+  .logo-text { font-family: 'Orbitron', monospace; font-weight: 900; font-size: 20px; color: #EFEFEF; letter-spacing: 0.08em; }
+
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 13px; font-family: 'JetBrains Mono', monospace; cursor: pointer; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-cta { font-family: 'Orbitron', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.15em; color: #fff; background: var(--rust); padding: 10px 24px; border: none; cursor: pointer; }
+
+  .hero { min-height: 600px; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 48px 80px; position: relative; overflow: hidden; border-bottom: 1px solid #1a1a1a; }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 80% 50%, rgba(193,68,14,0.12) 0%, transparent 70%),
+      linear-gradient(rgba(193,68,14,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(193,68,14,0.03) 1px, transparent 1px);
+    background-size: auto, 48px 48px, 48px 48px;
+  }
+
+  .hero-3d { position: absolute; inset: 0; left: 38%; pointer-events: auto; }
+
+  .hero-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--rust); letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 28px; position: relative; }
+  .hero-h1 { font-family: 'Orbitron', monospace; font-size: 96px; font-weight: 900; line-height: 0.9; color: var(--text); position: relative; margin-bottom: 32px; }
+  .hero-h1 em { color: var(--rust); font-style: normal; }
+  .hero-tagline { font-size: 20px; color: var(--muted); max-width: 560px; line-height: 1.6; position: relative; margin-bottom: 48px; }
+  .hero-actions { display: flex; gap: 16px; align-items: center; position: relative; }
+
+  .btn-rust { background: var(--rust); color: #fff; padding: 16px 40px; font-family: 'Orbitron', monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.15em; border: none; cursor: pointer; text-decoration: none; }
+  .btn-ghost { background: transparent; color: var(--muted); padding: 16px 40px; font-family: 'Orbitron', monospace; font-size: 12px; letter-spacing: 0.15em; border: 1px solid #222; cursor: pointer; text-decoration: none; }
+
+  .manifesto { padding: 100px 48px; border-bottom: 1px solid #1a1a1a; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .manifesto-left { font-family: 'Orbitron', monospace; font-size: 36px; font-weight: 700; line-height: 1.2; }
+  .manifesto-left span { color: var(--rust); }
+  .manifesto-p { font-size: 15px; color: var(--muted); line-height: 1.9; margin-bottom: 20px; }
+  .manifesto-p strong { color: var(--text); font-weight: 700; }
+
+  .pillars { padding: 100px 48px; border-bottom: 1px solid #1a1a1a; }
+  .pillars-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--rust); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 64px; }
+  .pillars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; }
+  .pillar { border-top: 1px solid var(--rust); padding-top: 32px; }
+  .pillar-num { font-family: 'Orbitron', monospace; font-size: 48px; font-weight: 900; color: #1a1a1a; line-height: 1; margin-bottom: 16px; }
+  .pillar-title { font-family: 'Orbitron', monospace; font-size: 14px; font-weight: 700; margin-bottom: 12px; letter-spacing: 0.05em; }
+  .pillar-body { font-size: 14px; color: var(--muted); line-height: 1.8; }
+
+  .about-section { padding: 100px 48px; border-bottom: 1px solid #1a1a1a; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .about-photo-wrap { position: relative; }
+  .about-photo { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: center top; filter: grayscale(20%); }
+  .about-photo-frame { position: absolute; inset: 0; border: 1px solid rgba(193,68,14,0.3); pointer-events: none; }
+  .about-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--rust); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 32px; }
+  .about-h2 { font-family: 'Orbitron', monospace; font-size: 32px; font-weight: 900; margin-bottom: 32px; }
+  .about-h2 span { color: var(--rust); }
+  .about-body { font-size: 15px; color: var(--muted); line-height: 2; margin-bottom: 24px; }
+  .about-body strong { color: var(--text); font-weight: 700; }
+
+  .quote-section { padding: 100px 48px; border-bottom: 1px solid #1a1a1a; background: var(--bg2); }
+  .quote-text { font-family: 'Orbitron', monospace; font-size: 22px; font-weight: 700; max-width: 800px; margin: 0 auto; line-height: 1.5; text-align: center; }
+  .quote-text em { color: var(--rust); font-style: normal; }
+  .quote-attr { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); text-align: center; margin-top: 32px; letter-spacing: 0.1em; }
+
+  .status-section { padding: 100px 48px; border-bottom: 1px solid #1a1a1a; }
+  .status-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--rust); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 48px; }
+  .progress-row { display: flex; align-items: center; gap: 24px; margin-bottom: 20px; }
+  .progress-name { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); min-width: 140px; }
+  .progress-bar { flex: 1; height: 2px; background: #1a1a1a; position: relative; }
+  .progress-fill { height: 100%; background: var(--rust); }
+  .progress-status { font-family: 'JetBrains Mono', monospace; font-size: 11px; min-width: 90px; text-align: right; }
+  .done { color: #4CAF50; }
+  .active-s { color: var(--rust2); }
+  .pending { color: var(--dim); }
+
+  .cta-final { padding: 120px 48px; text-align: center; }
+  .cta-h2 { font-family: 'Orbitron', monospace; font-size: 52px; font-weight: 900; line-height: 1.1; margin-bottom: 24px; }
+  .cta-h2 span { color: var(--rust); }
+  .cta-body { font-size: 16px; color: var(--muted); max-width: 480px; margin: 0 auto 48px; line-height: 1.8; }
+  .email-row { display: flex; max-width: 440px; margin: 0 auto; }
+  .email-input { flex: 1; background: var(--bg3); border: 1px solid #222; border-right: none; padding: 16px 20px; color: var(--text); font-family: 'Syne', sans-serif; font-size: 14px; outline: none; }
+  .email-btn { background: var(--rust); color: #fff; border: none; padding: 16px 28px; font-family: 'Orbitron', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; cursor: pointer; }
+
+  footer { padding: 28px 48px; border-top: 1px solid #1a1a1a; display: flex; justify-content: space-between; align-items: center; }
+  .footer-logo { display: flex; align-items: center; gap: 10px; }
+  .footer-logo-text { font-family: 'Orbitron', monospace; font-size: 14px; font-weight: 900; color: #EFEFEF; }
+  .footer-copy { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--dim); }
+
+  .page-content { display: none; }
+  .page-content.active { display: block; }
+
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+  #notify-form { flex-wrap: wrap; }
+  #notify-form .cf-turnstile { flex-basis: 100%; margin-top: 16px; }
+  .notify-msg { font-family: 'JetBrains Mono', monospace; font-size: 12px; text-align: center; min-height: 18px; margin-top: 16px; }
+  .notify-ok { color: var(--rust2); }
+  .notify-err { color: #E0524F; }
+</style>

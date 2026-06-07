@@ -1,0 +1,28 @@
+{
+  "name": "spawn-site",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "deploy": "astro build && wrangler pages deploy dist",
+    "broadcast": "npx tsx scripts/broadcast.ts"
+  },
+  "dependencies": {
+    "@astrojs/preact": "^3.5.4",
+    "@astrojs/tailwind": "^5.1.5",
+    "astro": "^4.16.18",
+    "preact": "^10.26.4",
+    "tailwindcss": "^3.4.17",
+    "three": "^0.165.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250109.0",
+    "@types/node": "^22.10.5",
+    "@types/three": "^0.165.0",
+    "tsx": "^4.19.2",
+    "wrangler": "^3.114.0"
+  }
+}

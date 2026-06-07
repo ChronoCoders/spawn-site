@@ -1,0 +1,262 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero3D from '../components/Hero3D.tsx';
+
+// Cloudflare Turnstile site key (public). This default is Cloudflare's
+// "always passes" test key so local dev works out of the box — replace with
+// the real key from your Turnstile dashboard before launch.
+const TURNSTILE_SITE_KEY = '1x00000000000000000000AA';
+---
+
+<Base>
+  <div id="page-home" class="page-content active">
+    <div class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-3d">
+        <Hero3D client:only="preact" />
+      </div>
+      <div class="hero-eyebrow">// Game Engine &bull; Written in Rust &bull; 2026</div>
+      <div class="hero-h1">SPAWN<em>.</em></div>
+      <div class="hero-tagline">
+        Build games without fighting your tools. Spawn gives you the foundation — fast, safe, and
+        completely yours.
+      </div>
+      <div class="hero-actions">
+        <button class="btn-rust" data-notify>Get Notified</button>
+        <button class="btn-ghost" data-page="status">View Progress</button>
+      </div>
+    </div>
+
+    <div class="manifesto">
+      <div class="manifesto-left">Why another<br />engine<span>?</span></div>
+      <div>
+        <p class="manifesto-p">
+          Unreal, Unity, Godot. Decades of decisions made for someone else's game.
+          <strong>Every engine carries its history.</strong> The compromises, the workarounds, the
+          legacy.
+        </p>
+        <p class="manifesto-p">
+          Spawn starts in 2026. Thirty years of documented mistakes, none of them ours.
+          <strong>A language that catches entire classes of bugs before your game ships.</strong>
+        </p>
+        <p class="manifesto-p">
+          Not a better version of what exists. Something built for what comes next.
+        </p>
+      </div>
+    </div>
+
+    <div class="pillars">
+      <div class="pillars-label">// Three things we won't compromise on</div>
+      <div class="pillars-grid">
+        <div class="pillar">
+          <div class="pillar-num">01</div>
+          <div class="pillar-title">Correctness first</div>
+          <div class="pillar-body">
+            Memory safety at compile time. Data races caught before they ship. Your game runs or it
+            doesn't compile. No in-between.
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">02</div>
+          <div class="pillar-title">You own the stack</div>
+          <div class="pillar-body">
+            No black boxes. No opaque systems you can't inspect. Every layer is readable,
+            extensible, and replaceable.
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">03</div>
+          <div class="pillar-title">Built to last</div>
+          <div class="pillar-body">
+            Production-grade from day one. Not a prototype that got popular. Foundations you can
+            build on for a decade.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote-section">
+      <div class="quote-text">
+        "Starting fresh in 2026 with 30 years of documented mistakes is an <em>advantage</em>, not a
+        handicap."
+      </div>
+      <div class="quote-attr">— Altug Tatlisu, Creator of Spawn</div>
+    </div>
+
+    <div class="cta-final">
+      <div class="cta-h2">The code is being<br />written <span>right now.</span></div>
+      <p class="cta-body">Repo goes public when Phase 1 is complete. Be the first to know.</p>
+      <form id="notify-form" class="email-row" novalidate>
+        <input
+          type="text"
+          name="company"
+          class="hp"
+          tabindex="-1"
+          autocomplete="off"
+          aria-hidden="true"
+        />
+        <input
+          class="email-input"
+          type="email"
+          name="email"
+          placeholder="your@email.com"
+          required
+        />
+        <button class="email-btn" type="submit">Notify Me</button>
+        <div class="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY} data-theme="dark"></div>
+      </form>
+      <p id="notify-msg" class="notify-msg" role="status" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <div id="page-vision" class="page-content">
+    <div style="padding: 100px 48px; border-bottom: 1px solid #1a1a1a;">
+      <div
+        style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--rust); letter-spacing:0.2em; text-transform:uppercase; margin-bottom:32px;"
+      >
+        // The vision
+      </div>
+      <div style="font-family:'Orbitron',monospace; font-size:36px; font-weight:900; margin-bottom:48px;">
+        Why Rust.<br />Why now.<span style="color:var(--rust)">.</span>
+      </div>
+      <p style="font-size:16px; color:var(--muted); max-width:680px; line-height:2; margin-bottom:28px;">
+        Every major engine was built when <strong style="color:var(--text);"
+          >there was no alternative.</strong
+        > Unreal in 1998. Unity in 2005. Godot in 2014. Each one filled a vacuum.
+      </p>
+      <p style="font-size:16px; color:var(--muted); max-width:680px; line-height:2; margin-bottom:28px;">
+        The vacuum today isn't a missing engine. It's a missing foundation. C++ game engines carry
+        thirty years of technical debt. Memory bugs. Undefined behavior. Race conditions that only
+        appear in production.
+      </p>
+      <p style="font-size:16px; color:var(--muted); max-width:680px; line-height:2; margin-bottom:28px;">
+        Rust eliminates entire categories of bugs at compile time. Not with runtime checks. Not with
+        garbage collection. <strong style="color:var(--text);"
+          >At the type system level, before your game ships.</strong
+        >
+      </p>
+      <p style="font-size:16px; color:var(--muted); max-width:680px; line-height:2;">
+        The question isn't whether Rust can power a game engine. The question is who builds it first
+        and builds it right.
+      </p>
+    </div>
+  </div>
+
+  <div id="page-status" class="page-content">
+    <div class="status-section">
+      <div class="status-label">// Phase 1 — Foundation (complete)</div>
+      <div class="progress-row">
+        <div class="progress-name">spawn-core</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        <div class="progress-status done">Complete</div>
+      </div>
+      <div class="progress-row">
+        <div class="progress-name">spawn-ecs</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        <div class="progress-status done">Complete</div>
+      </div>
+      <div class="progress-row">
+        <div class="progress-name">spawn-platform</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        <div class="progress-status done">Complete</div>
+      </div>
+      <div class="progress-row">
+        <div class="progress-name">spawn-asset</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        <div class="progress-status done">Complete</div>
+      </div>
+      <div class="progress-row">
+        <div class="progress-name">spawn-debug</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        <div class="progress-status done">Complete</div>
+      </div>
+      <div class="progress-row">
+        <div class="progress-name">spawn-input</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        <div class="progress-status done">Complete</div>
+      </div>
+      <div class="progress-row">
+        <div class="progress-name">spawn-render</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        <div class="progress-status done">Complete</div>
+      </div>
+      <div class="progress-row">
+        <div class="progress-name">spawn-audio</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        <div class="progress-status done">Complete</div>
+      </div>
+      <div class="progress-row">
+        <div class="progress-name">spawn-physics</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        <div class="progress-status done">Complete</div>
+      </div>
+      <div class="progress-row">
+        <div class="progress-name">spawn-script</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        <div class="progress-status done">Complete</div>
+      </div>
+      <div class="progress-row">
+        <div class="progress-name">spawn-ui</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        <div class="progress-status done">Complete</div>
+      </div>
+      <div class="progress-row">
+        <div class="progress-name">spawn-editor</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        <div class="progress-status done">Complete</div>
+      </div>
+      <div class="progress-row">
+        <div class="progress-name">spawn-net</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        <div class="progress-status done">Complete</div>
+      </div>
+      <div class="progress-row">
+        <div class="progress-name">spawn-build</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        <div class="progress-status done">Complete</div>
+      </div>
+      <div style="margin-top:64px; border-top:1px solid #1a1a1a; padding-top:48px;">
+        <div class="status-label">// Phase 1 complete — the repo is public</div>
+        <div style="margin-top:24px;">
+          <a
+            class="btn-rust"
+            href="https://github.com/ChronoCoders/spawn"
+            target="_blank"
+            rel="noopener"
+            style="display:inline-block;">View on GitHub</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="page-about" class="page-content">
+    <div class="about-section">
+      <div class="about-photo-wrap">
+        <img class="about-photo" src="/photo.jpg" alt="Altug Tatlisu" />
+        <div class="about-photo-frame"></div>
+      </div>
+      <div>
+        <div class="about-label">// The builder</div>
+        <div class="about-h2">Altug <span>Tatlisu</span></div>
+        <p class="about-body">
+          <strong>30 years in systems programming.</strong> C, C++, Assembly, Rust. Commercial games
+          in the DOS era.
+        </p>
+        <p class="about-body">
+          Today: production HFT systems where nanoseconds are the unit of measurement. Distributed
+          systems, blockchain infrastructure, onion routing networks.
+        </p>
+        <p class="about-body">
+          This is not a weekend project. Not a tutorial engine dressed up as something serious.
+          <strong
+            >Spawn is a production-grade game engine built by someone who has shipped real code
+            across four decades of computing, code that had to work, in conditions where failure was
+            not an option.</strong
+          >
+        </p>
+        <p class="about-body" style="margin-bottom:0;">The code is being written right now.</p>
+      </div>
+    </div>
+  </div>
+</Base>

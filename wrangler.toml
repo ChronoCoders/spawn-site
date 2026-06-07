@@ -1,0 +1,22 @@
+name = "spawn-site"
+compatibility_date = "2026-06-07"
+pages_build_output_dir = "dist"
+
+# Plain-text sender. Change to your Resend-verified domain before launch,
+# e.g. "Spawn <hello@spawnengine.io>". Until the domain is verified, Resend
+# only allows its onboarding sender below.
+[vars]
+RESEND_FROM = "Spawn <onboarding@resend.dev>"
+
+# Run `wrangler d1 create spawn-subscribers` and paste the printed
+# database_id here.
+[[d1_databases]]
+binding = "DB"
+database_name = "spawn-subscribers"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+
+# Secrets — set with `wrangler pages secret put <NAME>`, never committed here:
+#   RESEND_API_KEY        (required) Resend API key used to send email.
+#   TURNSTILE_SECRET_KEY  (required) Cloudflare Turnstile secret key for spam
+#                         verification. If unset, the API logs a warning and
+#                         skips verification so local dev still works.
