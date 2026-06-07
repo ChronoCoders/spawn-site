@@ -23,6 +23,8 @@ const ogImage = new URL('/og-image.png', Astro.site).href;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    <link rel="preload" href="/fonts/orbitron.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/syne.woff2" as="font" type="font/woff2" crossorigin />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Spawn" />
@@ -43,12 +45,6 @@ const ogImage = new URL('/og-image.png', Astro.site).href;
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@300;400;500&family=Syne:wght@400;700;800&display=swap"
-      rel="stylesheet"
-    />
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer is:inline></script>
   </head>
   <body>
@@ -196,6 +192,37 @@ const ogImage = new URL('/og-image.png', Astro.site).href;
 </html>
 
 <style is:global>
+  /* Self-hosted fonts. descent-override / line-gap-override correct the fonts'
+     too-small win-descent metric, which otherwise makes Chrome on Windows clip
+     descenders (g, y, p, j) on every line regardless of line-height. */
+  @font-face {
+    font-family: 'Orbitron';
+    font-style: normal;
+    font-weight: 400 900;
+    font-display: swap;
+    src: url('/fonts/orbitron.woff2') format('woff2');
+    descent-override: 30%;
+    line-gap-override: 0%;
+  }
+  @font-face {
+    font-family: 'Syne';
+    font-style: normal;
+    font-weight: 400 800;
+    font-display: swap;
+    src: url('/fonts/syne.woff2') format('woff2');
+    descent-override: 30%;
+    line-gap-override: 0%;
+  }
+  @font-face {
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 300 500;
+    font-display: swap;
+    src: url('/fonts/jetbrains-mono.woff2') format('woff2');
+    descent-override: 30%;
+    line-gap-override: 0%;
+  }
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   :root {
