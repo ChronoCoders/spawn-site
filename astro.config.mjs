@@ -3,6 +3,7 @@ import preact from '@astrojs/preact';
 import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
+  site: 'https://spawnengine.io',
   output: 'static',
   integrations: [
     preact(),

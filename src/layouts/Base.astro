@@ -10,6 +10,9 @@ const {
   title = 'SPAWN — Game Engine Written in Rust',
   description = 'Build games without fighting your tools. Spawn gives you the foundation — fast, safe, and completely yours.',
 } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL('/og-image.png', Astro.site).href;
 ---
 
 <!doctype html>
@@ -19,20 +22,21 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Spawn" />
-    <meta property="og:url" content="https://spawnengine.io/" />
+    <meta property="og:url" content={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="https://spawnengine.io/og-image.png" />
+    <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Spawn — a production-grade game engine written in Rust" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content="https://spawnengine.io/og-image.png" />
+    <meta name="twitter:image" content={ogImage} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
