@@ -136,6 +136,7 @@ export default function Hero3D() {
     parent.addEventListener('mousemove', onMouseMove);
 
     let frameId = 0;
+    let revealed = false;
 
     function animate() {
       frameId = requestAnimationFrame(animate);
@@ -160,6 +161,13 @@ export default function Hero3D() {
       camera.lookAt(0, 0, 0);
 
       renderer.render(scene, camera);
+
+      // Fade the canvas in on the first rendered frame so the 3D appears
+      // smoothly instead of popping in once the bundle finishes loading.
+      if (!revealed) {
+        revealed = true;
+        canvas.style.opacity = '1';
+      }
     }
 
     animate();
@@ -191,7 +199,10 @@ export default function Hero3D() {
 
   return (
     <div style={{ width: '100%', height: '100%', background: 'transparent', position: 'relative' }}>
-      <canvas ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }} />
+      <canvas
+        ref={canvasRef}
+        style={{ width: '100%', height: '100%', display: 'block', opacity: 0, transition: 'opacity 0.8s ease' }}
+      />
     </div>
   );
 }
