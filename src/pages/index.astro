@@ -12,22 +12,25 @@ const TURNSTILE_SITE_KEY = '1x00000000000000000000AA';
   <div id="page-home" class="page-content active">
     <div class="hero">
       <div class="hero-bg"></div>
+      <div class="hero-glow"></div>
       <div class="hero-3d">
         <Hero3D client:only="preact" />
       </div>
-      <div class="hero-eyebrow">// Game Engine &bull; Written in Rust &bull; 2026</div>
-      <div class="hero-h1">SPAWN<em>.</em></div>
-      <div class="hero-tagline">
+      <div class="hero-grain"></div>
+      <div class="hero-vignette"></div>
+      <div class="hero-eyebrow reveal">// Game Engine &bull; Written in Rust &bull; 2026</div>
+      <div class="hero-h1 reveal" style="--d:0.08s">SPAWN<em>.</em></div>
+      <div class="hero-tagline reveal" style="--d:0.16s">
         Build games without fighting your tools. Spawn gives you the foundation — fast, safe, and
         completely yours.
       </div>
-      <div class="hero-actions">
+      <div class="hero-actions reveal" style="--d:0.24s">
         <button class="btn-rust" data-notify>Get Notified</button>
         <button class="btn-ghost" data-page="status">View Progress</button>
       </div>
     </div>
 
-    <div class="manifesto">
+    <div class="manifesto reveal">
       <div class="manifesto-left">Why another<br />engine<span>?</span></div>
       <div>
         <p class="manifesto-p">
@@ -48,7 +51,7 @@ const TURNSTILE_SITE_KEY = '1x00000000000000000000AA';
     <div class="pillars">
       <div class="pillars-label">// Three things we won't compromise on</div>
       <div class="pillars-grid">
-        <div class="pillar">
+        <div class="pillar reveal">
           <div class="pillar-num">01</div>
           <div class="pillar-title">Correctness first</div>
           <div class="pillar-body">
@@ -56,7 +59,7 @@ const TURNSTILE_SITE_KEY = '1x00000000000000000000AA';
             doesn't compile. No in-between.
           </div>
         </div>
-        <div class="pillar">
+        <div class="pillar reveal" style="--d:0.1s">
           <div class="pillar-num">02</div>
           <div class="pillar-title">You own the stack</div>
           <div class="pillar-body">
@@ -64,7 +67,7 @@ const TURNSTILE_SITE_KEY = '1x00000000000000000000AA';
             extensible, and replaceable.
           </div>
         </div>
-        <div class="pillar">
+        <div class="pillar reveal" style="--d:0.2s">
           <div class="pillar-num">03</div>
           <div class="pillar-title">Built to last</div>
           <div class="pillar-body">
@@ -76,14 +79,14 @@ const TURNSTILE_SITE_KEY = '1x00000000000000000000AA';
     </div>
 
     <div class="quote-section">
-      <div class="quote-text">
+      <div class="quote-text reveal">
         "Starting fresh in 2026 with 30 years of documented mistakes is an <em>advantage</em>, not a
         handicap."
       </div>
       <div class="quote-attr">— Altug Tatlisu, Creator of Spawn</div>
     </div>
 
-    <div class="cta-final">
+    <div class="cta-final reveal">
       <div class="cta-h2">The code is being<br />written <span>right now.</span></div>
       <p class="cta-body">Repo goes public when Phase 1 is complete. Be the first to know.</p>
       <form id="notify-form" class="email-row" novalidate>
@@ -110,7 +113,7 @@ const TURNSTILE_SITE_KEY = '1x00000000000000000000AA';
   </div>
 
   <div id="page-vision" class="page-content">
-    <div style="padding: 100px 48px; border-bottom: 1px solid #1a1a1a;">
+    <div class="vision-section reveal">
       <div
         style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--rust); letter-spacing:0.2em; text-transform:uppercase; margin-bottom:32px;"
       >
@@ -147,72 +150,72 @@ const TURNSTILE_SITE_KEY = '1x00000000000000000000AA';
       <div class="status-label">// Phase 1 — Foundation (complete)</div>
       <div class="progress-row">
         <div class="progress-name">spawn-core</div>
-        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        <div class="progress-bar"><div class="progress-fill" data-fill="100%"></div></div>
         <div class="progress-status done">Complete</div>
       </div>
       <div class="progress-row">
         <div class="progress-name">spawn-ecs</div>
-        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        <div class="progress-bar"><div class="progress-fill" data-fill="100%"></div></div>
         <div class="progress-status done">Complete</div>
       </div>
       <div class="progress-row">
         <div class="progress-name">spawn-platform</div>
-        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        <div class="progress-bar"><div class="progress-fill" data-fill="100%"></div></div>
         <div class="progress-status done">Complete</div>
       </div>
       <div class="progress-row">
         <div class="progress-name">spawn-asset</div>
-        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        <div class="progress-bar"><div class="progress-fill" data-fill="100%"></div></div>
         <div class="progress-status done">Complete</div>
       </div>
       <div class="progress-row">
         <div class="progress-name">spawn-debug</div>
-        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        <div class="progress-bar"><div class="progress-fill" data-fill="100%"></div></div>
         <div class="progress-status done">Complete</div>
       </div>
       <div class="progress-row">
         <div class="progress-name">spawn-input</div>
-        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        <div class="progress-bar"><div class="progress-fill" data-fill="100%"></div></div>
         <div class="progress-status done">Complete</div>
       </div>
       <div class="progress-row">
         <div class="progress-name">spawn-render</div>
-        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        <div class="progress-bar"><div class="progress-fill" data-fill="100%"></div></div>
         <div class="progress-status done">Complete</div>
       </div>
       <div class="progress-row">
         <div class="progress-name">spawn-audio</div>
-        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        <div class="progress-bar"><div class="progress-fill" data-fill="100%"></div></div>
         <div class="progress-status done">Complete</div>
       </div>
       <div class="progress-row">
         <div class="progress-name">spawn-physics</div>
-        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        <div class="progress-bar"><div class="progress-fill" data-fill="100%"></div></div>
         <div class="progress-status done">Complete</div>
       </div>
       <div class="progress-row">
         <div class="progress-name">spawn-script</div>
-        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        <div class="progress-bar"><div class="progress-fill" data-fill="100%"></div></div>
         <div class="progress-status done">Complete</div>
       </div>
       <div class="progress-row">
         <div class="progress-name">spawn-ui</div>
-        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        <div class="progress-bar"><div class="progress-fill" data-fill="100%"></div></div>
         <div class="progress-status done">Complete</div>
       </div>
       <div class="progress-row">
         <div class="progress-name">spawn-editor</div>
-        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        <div class="progress-bar"><div class="progress-fill" data-fill="100%"></div></div>
         <div class="progress-status done">Complete</div>
       </div>
       <div class="progress-row">
         <div class="progress-name">spawn-net</div>
-        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        <div class="progress-bar"><div class="progress-fill" data-fill="100%"></div></div>
         <div class="progress-status done">Complete</div>
       </div>
       <div class="progress-row">
         <div class="progress-name">spawn-build</div>
-        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        <div class="progress-bar"><div class="progress-fill" data-fill="100%"></div></div>
         <div class="progress-status done">Complete</div>
       </div>
       <div style="margin-top:64px; border-top:1px solid #1a1a1a; padding-top:48px;">
@@ -231,7 +234,7 @@ const TURNSTILE_SITE_KEY = '1x00000000000000000000AA';
   </div>
 
   <div id="page-about" class="page-content">
-    <div class="about-section">
+    <div class="about-section reveal">
       <div class="about-photo-wrap">
         <img class="about-photo" src="/photo.jpg" alt="Altug Tatlisu" />
         <div class="about-photo-frame"></div>
