@@ -68,7 +68,7 @@ const ogImage = new URL('/og-image.png', Astro.site).href;
       <Nav />
       <slot />
       <footer>
-        <div class="footer-logo">
+        <div class="footer-logo" data-page="home" role="button" tabindex="0" aria-label="Spawn — home">
           <svg width="20" height="20"><use href="#si"></use></svg>
           <div class="footer-logo-text">SPAWN</div>
         </div>
@@ -119,6 +119,14 @@ const ogImage = new URL('/og-image.png', Astro.site).href;
       // Home is active on load; fill its bars if it ever starts active.
       if (homeStatus && homeStatus.classList.contains('active')) fillBars(homeStatus);
       document.addEventListener('click', (e) => {
+        const el = e.target.closest('[data-page]');
+        if (el) {
+          e.preventDefault();
+          showPage(el.dataset.page);
+        }
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
         const el = e.target.closest('[data-page]');
         if (el) {
           e.preventDefault();
@@ -244,7 +252,7 @@ const ogImage = new URL('/og-image.png', Astro.site).href;
     background: rgba(8,8,8,0.97); border-bottom: 1px solid #1a1a1a;
   }
 
-  .logo { display: flex; align-items: center; gap: 14px; }
+  .logo { display: flex; align-items: center; gap: 14px; cursor: pointer; }
   .logo-text { font-family: 'Orbitron', monospace; font-weight: 900; font-size: 20px; line-height: 1.2; color: #EFEFEF; letter-spacing: 0.08em; }
 
   .nav-links { display: flex; gap: 36px; list-style: none; }
@@ -338,7 +346,7 @@ const ogImage = new URL('/og-image.png', Astro.site).href;
   .email-btn { background: var(--rust); color: #fff; border: none; padding: 16px 28px; font-family: 'Orbitron', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; line-height: 1.4; overflow: visible; cursor: pointer; }
 
   footer { padding: 28px 48px; border-top: 1px solid #1a1a1a; display: flex; justify-content: space-between; align-items: center; }
-  .footer-logo { display: flex; align-items: center; gap: 10px; }
+  .footer-logo { display: flex; align-items: center; gap: 10px; cursor: pointer; }
   .footer-logo-text { font-family: 'Orbitron', monospace; font-size: 14px; font-weight: 900; line-height: 1.2; color: #EFEFEF; }
   .footer-copy { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--dim); }
 
