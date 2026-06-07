@@ -5,9 +5,9 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/inject-preload.mjs",
     "preview": "astro preview",
-    "deploy": "astro build && wrangler pages deploy dist",
+    "deploy": "npm run build && wrangler pages deploy dist",
     "broadcast": "npx tsx scripts/broadcast.ts"
   },
   "dependencies": {
