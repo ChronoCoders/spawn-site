@@ -283,7 +283,9 @@ const ogImage = new URL('/og-image.png', Astro.site).href;
     background: radial-gradient(ellipse 85% 80% at 50% 42%, transparent 55%, rgba(0,0,0,0.55) 100%);
   }
 
-  .hero-3d { position: absolute; inset: 0; left: 38%; pointer-events: auto; }
+  /* Solid panel matching the 3D scene background, so the grid is covered in
+     the canvas region from first paint and the prisms fade in seamlessly. */
+  .hero-3d { position: absolute; inset: 0; left: 38%; pointer-events: auto; background: #080808; }
 
   .hero-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--rust); letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 28px; position: relative; }
   .hero-h1 { font-family: 'Orbitron', monospace; font-size: clamp(56px, 11vw, 96px); font-weight: 900; line-height: 0.9; overflow: visible; color: var(--text); position: relative; margin-bottom: 32px; }
