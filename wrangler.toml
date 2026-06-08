@@ -2,11 +2,9 @@ name = "spawn-site"
 compatibility_date = "2026-06-07"
 pages_build_output_dir = "dist"
 
-# Plain-text sender. Change to your Resend-verified domain before launch,
-# e.g. "Spawn <hello@spawnengine.io>". Until the domain is verified, Resend
-# only allows its onboarding sender below.
+# Sender for confirmation/broadcast emails. spawnengine.io is verified in Resend.
 [vars]
-RESEND_FROM = "Spawn <onboarding@resend.dev>"
+RESEND_FROM = "Spawn <hello@spawnengine.io>"
 
 [[d1_databases]]
 binding = "DB"
