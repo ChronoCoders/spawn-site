@@ -85,7 +85,7 @@ export function confirmationEmail(unsubscribeUrl?: string): EmailContent {
   const text =
     "You're on the list.\n\n" +
     'Spawn is a production-grade game engine written in Rust. Built from first principles, with no shortcuts, in a language that enforces its guarantees at compile time.\n\n' +
-    "The code is being written right now. You'll be the first to know the moment the repository goes public. One email, no noise.\n\n" +
+    "The repository is now public. We'll email you when major new releases ship. One email, no noise.\n\n" +
     'Altug Tatlisu, Creator of Spawn\n\n' +
     'You received this because you signed up at spawnengine.io.' +
     (unsubscribeUrl ? `\nUnsubscribe: ${unsubscribeUrl}` : '');
@@ -99,7 +99,7 @@ export function confirmationEmail(unsubscribeUrl?: string): EmailContent {
           'Spawn is a production-grade game engine written in Rust. Built from first principles, with no shortcuts, in a language that enforces its guarantees at compile time.'
         ) +
         paragraph(
-          "The code is being written right now. You'll be the first to know the moment the repository goes public. One email, no noise."
+          'The repository is now public. We&apos;ll email you when major new releases ship. One email, no noise.'
         ),
       unsubscribeUrl,
     }),
