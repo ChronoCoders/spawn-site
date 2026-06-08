@@ -73,7 +73,7 @@ const ogImage = new URL('/og-image.png', Astro.site).href;
           <div class="footer-logo-text">SPAWN</div>
         </div>
         <a class="footer-contact" href="mailto:hello@spawnengine.io">hello@spawnengine.io</a>
-        <div class="footer-copy">© 2026 Altug Tatlisu — spawnengine.io</div>
+        <div class="footer-copy">© 2026 Spawn. All rights reserved.</div>
       </footer>
     </div>
 
@@ -348,11 +348,11 @@ const ogImage = new URL('/og-image.png', Astro.site).href;
   .email-input { flex: 1; background: var(--bg3); border: 1px solid #222; border-right: none; padding: 16px 20px; color: var(--text); font-family: 'Syne', sans-serif; font-size: 14px; outline: none; }
   .email-btn { background: var(--rust); color: #fff; border: none; padding: 16px 28px; font-family: 'Orbitron', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; line-height: 1.4; overflow: visible; cursor: pointer; }
 
-  footer { padding: 28px 48px; border-top: 1px solid #1a1a1a; display: flex; justify-content: space-between; align-items: center; }
-  .footer-logo { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+  footer { padding: 28px 48px; border-top: 1px solid #1a1a1a; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
+  .footer-logo { display: flex; align-items: center; gap: 10px; cursor: pointer; justify-self: start; }
   .footer-logo-text { font-family: 'Orbitron', monospace; font-size: 14px; font-weight: 900; line-height: 1.2; color: #EFEFEF; }
-  .footer-copy { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--dim); }
-  .footer-contact { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); text-decoration: none; letter-spacing: 0.04em; transition: color 0.2s ease; }
+  .footer-copy { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--dim); justify-self: end; }
+  .footer-contact { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); text-decoration: none; letter-spacing: 0.04em; justify-self: center; transition: color 0.2s ease; }
   .footer-contact:hover { color: var(--rust); }
 
   .page-content { display: none; }
@@ -430,6 +430,6 @@ const ogImage = new URL('/og-image.png', Astro.site).href;
     #notify-form { flex-direction: column; }
     .email-input { border-right: 1px solid #222; }
     .email-btn { padding: 15px; }
-    footer { flex-direction: column; gap: 12px; text-align: center; }
+    footer { display: flex; flex-direction: column; gap: 12px; text-align: center; }
   }
 </style>
