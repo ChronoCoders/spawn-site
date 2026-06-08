@@ -27,6 +27,7 @@ function shell(opts: {
   heading: string;
   bodyHtml: string;
   cta?: { label: string; url: string };
+  unsubscribeUrl?: string;
 }): string {
   const cta = opts.cta
     ? `<tr><td style="padding:32px 40px 0;">
@@ -34,6 +35,10 @@ function shell(opts: {
             <td bgcolor="${RUST}"><a href="${opts.cta.url}" style="display:inline-block;padding:15px 36px;font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:bold;letter-spacing:2px;color:#ffffff;text-decoration:none;">${opts.cta.label}</a></td>
           </tr></table>
         </td></tr>`
+    : '';
+
+  const unsub = opts.unsubscribeUrl
+    ? `<a href="${opts.unsubscribeUrl}" style="color:${DIM};text-decoration:underline;">Unsubscribe</a> &middot; `
     : '';
 
   return `<!DOCTYPE html>
@@ -67,7 +72,7 @@ function shell(opts: {
     <tr><td align="center" style="padding:22px 40px;">
       <div style="font-family:'Courier New',Courier,monospace;font-size:11px;color:${DIM};line-height:1.7;">
         You received this because you signed up at <a href="https://spawnengine.io" style="color:${RUST};text-decoration:none;">spawnengine.io</a>.<br>
-        &copy; 2026 Spawn. All rights reserved.
+        ${unsub}&copy; 2026 Spawn. All rights reserved.
       </div>
     </td></tr>
   </table>
@@ -76,7 +81,14 @@ function shell(opts: {
 </body></html>`;
 }
 
-export function confirmationEmail(): EmailContent {
+export function confirmationEmail(unsubscribeUrl?: string): EmailContent {
+  const text =
+    "You're on the list.\n\n" +
+    'Spawn is a production-grade game engine written in Rust. Built from first principles, with no shortcuts, in a language that enforces its guarantees at compile time.\n\n' +
+    "The code is being written right now. You'll be the first to know the moment the repository goes public. One email, no noise.\n\n" +
+    'Altug Tatlisu, Creator of Spawn\n\n' +
+    'You received this because you signed up at spawnengine.io.' +
+    (unsubscribeUrl ? `\nUnsubscribe: ${unsubscribeUrl}` : '');
   return {
     subject: "You're on the Spawn list",
     html: shell({
@@ -89,17 +101,21 @@ export function confirmationEmail(): EmailContent {
         paragraph(
           "The code is being written right now. You'll be the first to know the moment the repository goes public. One email, no noise."
         ),
+      unsubscribeUrl,
     }),
-    text:
-      "You're on the list.\n\n" +
-      'Spawn is a production-grade game engine written in Rust. Built from first principles, with no shortcuts, in a language that enforces its guarantees at compile time.\n\n' +
-      "The code is being written right now. You'll be the first to know the moment the repository goes public. One email, no noise.\n\n" +
-      'Altug Tatlisu, Creator of Spawn\n\n' +
-      'You received this because you signed up at spawnengine.io.',
+    text,
   };
 }
 
-export function launchEmail(): EmailContent {
+export function launchEmail(unsubscribeUrl?: string): EmailContent {
+  const text =
+    'Spawn is live.\n\n' +
+    'The repository is now public. Spawn is a production-grade game engine written in Rust. The foundation, built right.\n\n' +
+    'Code:  https://github.com/ChronoCoders/spawn\n' +
+    'Site:  https://spawnengine.io\n\n' +
+    'Altug Tatlisu, Creator of Spawn\n\n' +
+    'You received this because you signed up at spawnengine.io.' +
+    (unsubscribeUrl ? `\nUnsubscribe: ${unsubscribeUrl}` : '');
   return {
     subject: 'Spawn is live',
     html: shell({
@@ -110,13 +126,8 @@ export function launchEmail(): EmailContent {
           'The repository is now public. Spawn is a production-grade game engine written in Rust. The foundation, built right.'
         ) + paragraph('Thank you for being here from the start.'),
       cta: { label: 'VIEW ON GITHUB', url: 'https://github.com/ChronoCoders/spawn' },
+      unsubscribeUrl,
     }),
-    text:
-      'Spawn is live.\n\n' +
-      'The repository is now public. Spawn is a production-grade game engine written in Rust. The foundation, built right.\n\n' +
-      'Code:  https://github.com/ChronoCoders/spawn\n' +
-      'Site:  https://spawnengine.io\n\n' +
-      'Altug Tatlisu, Creator of Spawn\n\n' +
-      'You received this because you signed up at spawnengine.io.',
+    text,
   };
 }

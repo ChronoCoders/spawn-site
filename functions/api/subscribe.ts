@@ -11,6 +11,20 @@ interface Env {
   RESEND_API_KEY: string;
   RESEND_FROM: string;
   TURNSTILE_SECRET_KEY?: string;
+  UNSUB_SECRET?: string;
+}
+
+async function unsubscribeUrl(secret: string, email: string): Promise<string> {
+  const key = await crypto.subtle.importKey(
+    'raw',
+    new TextEncoder().encode(secret),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign']
+  );
+  const sig = await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(email));
+  const t = [...new Uint8Array(sig)].map((b) => b.toString(16).padStart(2, '0')).join('');
+  return `https://spawnengine.io/api/unsubscribe?e=${encodeURIComponent(email)}&t=${t}`;
 }
 
 interface Payload {
@@ -103,7 +117,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
       body: JSON.stringify({
         from: env.RESEND_FROM,
         to: [email],
-        ...confirmationEmail(),
+        ...confirmationEmail(env.UNSUB_SECRET ? await unsubscribeUrl(env.UNSUB_SECRET, email) : undefined),
       }),
     });
     emailed = send.ok;

@@ -10,6 +10,8 @@
  *        CF_D1_ACCOUNT_ID    Cloudflare account id
  *        CF_D1_DATABASE_ID   D1 database id (from `wrangler d1 create`)
  *        CF_D1_API_TOKEN     Cloudflare API token with D1 read/write scope
+ *        UNSUB_SECRET        same value as the Pages secret UNSUB_SECRET
+ *                            (signs per-recipient one-click unsubscribe links)
  *   2. Dry run to preview without sending:
  *        npm run broadcast -- --dry-run
  *   3. Send for real:
@@ -21,6 +23,7 @@
 
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { createHmac } from 'node:crypto';
 import { launchEmail } from '../lib/email';
 
 // Minimal .env loader — fills process.env for any key not already set.
@@ -53,7 +56,12 @@ interface Subscriber {
   emailed: number;
 }
 
-const LAUNCH = launchEmail();
+function unsubUrl(email: string): string | undefined {
+  const secret = process.env.UNSUB_SECRET;
+  if (!secret) return undefined;
+  const t = createHmac('sha256', secret).update(email).digest('hex');
+  return `https://spawnengine.io/api/unsubscribe?e=${encodeURIComponent(email)}&t=${t}`;
+}
 
 function requireEnv(name: string): string {
   const value = process.env[name];
@@ -93,6 +101,14 @@ async function d1Query<T>(sql: string, params: unknown[] = []): Promise<T[]> {
 
 async function sendEmail(apiKey: string, from: string, to: string): Promise<boolean> {
   try {
+    const unsub = unsubUrl(to);
+    const mail = launchEmail(unsub);
+    const emailHeaders = unsub
+      ? {
+          'List-Unsubscribe': `<${unsub}>`,
+          'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
+        }
+      : undefined;
     const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
@@ -102,9 +118,10 @@ async function sendEmail(apiKey: string, from: string, to: string): Promise<bool
       body: JSON.stringify({
         from,
         to: [to],
-        subject: LAUNCH.subject,
-        html: LAUNCH.html,
-        text: LAUNCH.text,
+        subject: mail.subject,
+        html: mail.html,
+        text: mail.text,
+        ...(emailHeaders ? { headers: emailHeaders } : {}),
       }),
     });
     return res.ok;
