@@ -1,5 +1,7 @@
 /// <reference types="@cloudflare/workers-types" />
 
+import { confirmationEmail } from '../../lib/email';
+
 // POST /api/subscribe — validate, persist to D1, fire a confirmation email
 // via Resend. Storage is the source of truth: a Resend failure never loses a
 // signup, it only flips `emailed` to false in the response.
@@ -101,20 +103,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
       body: JSON.stringify({
         from: env.RESEND_FROM,
         to: [email],
-        subject: "You're on the Spawn list",
-        html:
-          '<div style="font-family:sans-serif;line-height:1.6;color:#111">' +
-          "<p>You're on the list.</p>" +
-          '<p>Spawn is a production-grade game engine written in Rust. ' +
-          'The code is being written right now — you\'ll be the first to know ' +
-          'when the repository goes public.</p>' +
-          '<p>— Altug Tatlisu, Creator of Spawn</p>' +
-          '</div>',
-        text:
-          "You're on the list.\n\n" +
-          'Spawn is a production-grade game engine written in Rust. The code is ' +
-          "being written right now — you'll be the first to know when the " +
-          'repository goes public.\n\n— Altug Tatlisu, Creator of Spawn',
+        ...confirmationEmail(),
       }),
     });
     emailed = send.ok;

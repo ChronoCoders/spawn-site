@@ -21,6 +21,7 @@
 
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { launchEmail } from '../lib/email';
 
 // Minimal .env loader — fills process.env for any key not already set.
 function loadEnv(): void {
@@ -52,27 +53,7 @@ interface Subscriber {
   emailed: number;
 }
 
-const SUBJECT = 'Spawn is live';
-const REPO_URL = 'https://github.com/ChronoCoders/spawn';
-const SITE_URL = 'https://spawnengine.io';
-
-const TEXT_BODY =
-  'Spawn is live.\n\n' +
-  'The repository is now public. Spawn is a production-grade game engine ' +
-  'written in Rust — the foundation, built right.\n\n' +
-  `Code:  ${REPO_URL}\n` +
-  `Site:  ${SITE_URL}\n\n` +
-  '— Altug Tatlisu, Creator of Spawn';
-
-const HTML_BODY =
-  '<div style="font-family:sans-serif;line-height:1.6;color:#111">' +
-  '<p><strong>Spawn is live.</strong></p>' +
-  '<p>The repository is now public. Spawn is a production-grade game engine ' +
-  'written in Rust — the foundation, built right.</p>' +
-  `<p>Code: <a href="${REPO_URL}">${REPO_URL}</a><br>` +
-  `Site: <a href="${SITE_URL}">${SITE_URL}</a></p>` +
-  '<p>— Altug Tatlisu, Creator of Spawn</p>' +
-  '</div>';
+const LAUNCH = launchEmail();
 
 function requireEnv(name: string): string {
   const value = process.env[name];
@@ -121,9 +102,9 @@ async function sendEmail(apiKey: string, from: string, to: string): Promise<bool
       body: JSON.stringify({
         from,
         to: [to],
-        subject: SUBJECT,
-        html: HTML_BODY,
-        text: TEXT_BODY,
+        subject: LAUNCH.subject,
+        html: LAUNCH.html,
+        text: LAUNCH.text,
       }),
     });
     return res.ok;
