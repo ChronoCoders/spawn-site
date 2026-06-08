@@ -1,4 +1,4 @@
-// Branded email templates for Spawn — table-based, inline-styled, dark theme,
+// Branded email templates for Spawn: table-based, inline-styled, dark theme,
 // built for broad email-client compatibility (no external CSS, no web fonts).
 // Shared by the signup confirmation (functions/api/subscribe.ts) and the
 // launch broadcast (scripts/broadcast.ts).
