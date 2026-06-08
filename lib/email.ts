@@ -60,7 +60,7 @@ function shell(opts: {
     ${cta}
     <tr><td style="padding:34px 40px 0;"><div style="border-top:1px solid ${BORDER};font-size:0;line-height:0;">&nbsp;</div></td></tr>
     <tr><td style="padding:22px 40px 44px;">
-      <div style="font-family:'Courier New',Courier,monospace;font-size:13px;color:#777777;">— Altug Tatlisu, Creator of Spawn</div>
+      <div style="font-family:'Courier New',Courier,monospace;font-size:13px;color:#777777;">Altug Tatlisu, Creator of Spawn</div>
     </td></tr>
   </table>
   <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
@@ -84,17 +84,17 @@ export function confirmationEmail(): EmailContent {
       heading: "You're on the list.",
       bodyHtml:
         paragraph(
-          'Spawn is a production-grade game engine written in Rust &mdash; built from first principles, with no shortcuts, in a language that enforces its guarantees at compile time.'
+          'Spawn is a production-grade game engine written in Rust. Built from first principles, with no shortcuts, in a language that enforces its guarantees at compile time.'
         ) +
         paragraph(
-          "The code is being written right now. You'll be the first to know the moment the repository goes public &mdash; one email, no noise."
+          "The code is being written right now. You'll be the first to know the moment the repository goes public. One email, no noise."
         ),
     }),
     text:
       "You're on the list.\n\n" +
-      'Spawn is a production-grade game engine written in Rust — built from first principles, with no shortcuts, in a language that enforces its guarantees at compile time.\n\n' +
-      "The code is being written right now. You'll be the first to know the moment the repository goes public — one email, no noise.\n\n" +
-      '— Altug Tatlisu, Creator of Spawn\n\n' +
+      'Spawn is a production-grade game engine written in Rust. Built from first principles, with no shortcuts, in a language that enforces its guarantees at compile time.\n\n' +
+      "The code is being written right now. You'll be the first to know the moment the repository goes public. One email, no noise.\n\n" +
+      'Altug Tatlisu, Creator of Spawn\n\n' +
       'You received this because you signed up at spawnengine.io.',
   };
 }
@@ -107,16 +107,16 @@ export function launchEmail(): EmailContent {
       heading: 'Spawn is live.',
       bodyHtml:
         paragraph(
-          'The repository is now public. Spawn is a production-grade game engine written in Rust &mdash; the foundation, built right.'
+          'The repository is now public. Spawn is a production-grade game engine written in Rust. The foundation, built right.'
         ) + paragraph('Thank you for being here from the start.'),
       cta: { label: 'VIEW ON GITHUB', url: 'https://github.com/ChronoCoders/spawn' },
     }),
     text:
       'Spawn is live.\n\n' +
-      'The repository is now public. Spawn is a production-grade game engine written in Rust — the foundation, built right.\n\n' +
+      'The repository is now public. Spawn is a production-grade game engine written in Rust. The foundation, built right.\n\n' +
       'Code:  https://github.com/ChronoCoders/spawn\n' +
       'Site:  https://spawnengine.io\n\n' +
-      '— Altug Tatlisu, Creator of Spawn\n\n' +
+      'Altug Tatlisu, Creator of Spawn\n\n' +
       'You received this because you signed up at spawnengine.io.',
   };
 }
