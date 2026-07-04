@@ -7,8 +7,8 @@ interface Props {
 }
 
 const {
-  title = 'SPAWN — Game Engine Written in Rust',
-  description = 'Build games without fighting your tools. Spawn gives you the foundation — fast, safe, and completely yours.',
+  title = 'Spawn',
+  description = 'Build games without fighting your tools. Spawn gives you a fast, safe foundation that stays completely yours.',
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
@@ -23,8 +23,8 @@ const ogImage = new URL('/og-image.png', Astro.site).href;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <link rel="preload" href="/fonts/orbitron-v3.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/syne-v3.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/chakra-petch-600.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Spawn" />
@@ -34,7 +34,7 @@ const ogImage = new URL('/og-image.png', Astro.site).href;
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Spawn — a production-grade game engine written in Rust" />
+    <meta property="og:image:alt" content="Spawn, a game engine written in Rust" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
@@ -68,7 +68,7 @@ const ogImage = new URL('/og-image.png', Astro.site).href;
       <Nav />
       <slot />
       <footer>
-        <div class="footer-logo" data-page="home" role="button" tabindex="0" aria-label="Spawn — home">
+        <div class="footer-logo" data-page="home" role="button" tabindex="0" aria-label="Spawn home">
           <svg width="20" height="20"><use href="#si"></use></svg>
           <div class="footer-logo-text">SPAWN</div>
         </div>
@@ -205,20 +205,38 @@ const ogImage = new URL('/og-image.png', Astro.site).href;
      too-small win-descent metric, which otherwise makes Chrome on Windows clip
      descenders (g, y, p, j) on every line regardless of line-height. */
   @font-face {
-    font-family: 'Orbitron';
+    font-family: 'Chakra Petch';
     font-style: normal;
-    font-weight: 400 900;
+    font-weight: 500;
     font-display: swap;
-    src: url('/fonts/orbitron-v3.woff2') format('woff2');
+    src: url('/fonts/chakra-petch-500.woff2') format('woff2');
     descent-override: 30%;
     line-gap-override: 0%;
   }
   @font-face {
-    font-family: 'Syne';
+    font-family: 'Chakra Petch';
     font-style: normal;
-    font-weight: 400 800;
+    font-weight: 600;
     font-display: swap;
-    src: url('/fonts/syne-v3.woff2') format('woff2');
+    src: url('/fonts/chakra-petch-600.woff2') format('woff2');
+    descent-override: 30%;
+    line-gap-override: 0%;
+  }
+  @font-face {
+    font-family: 'Chakra Petch';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('/fonts/chakra-petch-700.woff2') format('woff2');
+    descent-override: 30%;
+    line-gap-override: 0%;
+  }
+  @font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400 600;
+    font-display: swap;
+    src: url('/fonts/inter.woff2') format('woff2');
     descent-override: 30%;
     line-gap-override: 0%;
   }
@@ -245,7 +263,7 @@ const ogImage = new URL('/og-image.png', Astro.site).href;
     --dim: #333;
   }
 
-  body { background: var(--bg); color: var(--text); font-family: 'Syne', sans-serif; }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; }
 
   nav {
     display: flex; justify-content: space-between; align-items: center;
@@ -254,13 +272,13 @@ const ogImage = new URL('/og-image.png', Astro.site).href;
   }
 
   .logo { display: flex; align-items: center; gap: 14px; cursor: pointer; }
-  .logo-text { font-family: 'Orbitron', monospace; font-weight: 900; font-size: 20px; line-height: 1.2; color: #EFEFEF; letter-spacing: 0.08em; }
+  .logo-text { font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: 20px; line-height: 1.2; color: #EFEFEF; letter-spacing: 0.08em; }
 
   .nav-links { display: flex; gap: 36px; list-style: none; }
   .nav-links a { color: var(--muted); text-decoration: none; font-size: 13px; font-family: 'JetBrains Mono', monospace; cursor: pointer; transition: color 0.2s; }
   .nav-links a:hover { color: var(--text); }
 
-  .nav-cta { font-family: 'Orbitron', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.15em; line-height: 1.4; overflow: visible; color: #fff; background: var(--rust); padding: 10px 24px; border: none; cursor: pointer; }
+  .nav-cta { font-family: 'Chakra Petch', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.15em; line-height: 1.4; overflow: visible; color: #fff; background: var(--rust); padding: 10px 24px; border: none; cursor: pointer; }
 
   .hero { min-height: 600px; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 48px 80px; position: relative; border-bottom: 1px solid #1a1a1a; }
 
@@ -288,17 +306,18 @@ const ogImage = new URL('/og-image.png', Astro.site).href;
      the canvas region from first paint and the prisms fade in seamlessly. */
   .hero-3d { position: absolute; inset: 0; left: 38%; pointer-events: auto; background: #080808; }
 
+  .hero-content { position: relative; max-width: min(640px, 48vw); }
   .hero-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--rust); letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 28px; position: relative; }
-  .hero-h1 { font-family: 'Orbitron', monospace; font-size: clamp(56px, 11vw, 96px); font-weight: 900; line-height: 0.9; overflow: visible; color: var(--text); position: relative; margin-bottom: 32px; }
+  .hero-h1 { font-family: 'Chakra Petch', sans-serif; font-size: clamp(38px, 6vw, 68px); font-weight: 700; line-height: 0.95; overflow: visible; color: var(--text); position: relative; margin-bottom: 32px; }
   .hero-h1 em { color: var(--rust); font-style: normal; }
   .hero-tagline { font-size: 20px; color: var(--muted); max-width: 560px; line-height: 1.6; position: relative; margin-bottom: 48px; }
   .hero-actions { display: flex; gap: 16px; align-items: center; position: relative; }
 
-  .btn-rust { background: var(--rust); color: #fff; padding: 16px 40px; font-family: 'Orbitron', monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.15em; line-height: 1.4; overflow: visible; border: none; cursor: pointer; text-decoration: none; }
-  .btn-ghost { background: transparent; color: var(--muted); padding: 16px 40px; font-family: 'Orbitron', monospace; font-size: 12px; letter-spacing: 0.15em; line-height: 1.4; overflow: visible; border: 1px solid #222; cursor: pointer; text-decoration: none; }
+  .btn-rust { background: var(--rust); color: #fff; padding: 16px 40px; font-family: 'Chakra Petch', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.15em; line-height: 1.4; overflow: visible; border: none; cursor: pointer; text-decoration: none; }
+  .btn-ghost { background: transparent; color: var(--muted); padding: 16px 40px; font-family: 'Chakra Petch', sans-serif; font-size: 12px; letter-spacing: 0.15em; line-height: 1.4; overflow: visible; border: 1px solid #222; cursor: pointer; text-decoration: none; }
 
   .manifesto { padding: 100px 48px; border-bottom: 1px solid #1a1a1a; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-  .manifesto-left { font-family: 'Orbitron', monospace; font-size: clamp(28px, 5vw, 36px); font-weight: 700; line-height: 1.3; }
+  .manifesto-left { font-family: 'Chakra Petch', sans-serif; font-size: clamp(28px, 5vw, 36px); font-weight: 700; line-height: 1.3; }
   .manifesto-left span { color: var(--rust); }
   .manifesto-p { font-size: 15px; color: var(--muted); line-height: 1.9; margin-bottom: 20px; }
   .manifesto-p strong { color: var(--text); font-weight: 700; }
@@ -307,8 +326,8 @@ const ogImage = new URL('/og-image.png', Astro.site).href;
   .pillars-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--rust); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 64px; }
   .pillars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; }
   .pillar { border-top: 1px solid var(--rust); padding-top: 32px; }
-  .pillar-num { font-family: 'Orbitron', monospace; font-size: 48px; font-weight: 900; color: #1a1a1a; line-height: 1.2; margin-bottom: 16px; }
-  .pillar-title { font-family: 'Orbitron', monospace; font-size: 14px; font-weight: 700; line-height: 1.2; margin-bottom: 12px; letter-spacing: 0.05em; }
+  .pillar-num { font-family: 'Chakra Petch', sans-serif; font-size: 48px; font-weight: 700; color: #1a1a1a; line-height: 1.2; margin-bottom: 16px; }
+  .pillar-title { font-family: 'Chakra Petch', sans-serif; font-size: 14px; font-weight: 700; line-height: 1.2; margin-bottom: 12px; letter-spacing: 0.05em; }
   .pillar-body { font-size: 14px; color: var(--muted); line-height: 1.8; }
 
   .about-section { padding: 100px 48px; border-bottom: 1px solid #1a1a1a; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
@@ -316,13 +335,13 @@ const ogImage = new URL('/og-image.png', Astro.site).href;
   .about-photo { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: center top; filter: grayscale(20%); }
   .about-photo-frame { position: absolute; inset: 0; border: 1px solid rgba(193,68,14,0.3); pointer-events: none; }
   .about-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--rust); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 32px; }
-  .about-h2 { font-family: 'Orbitron', monospace; font-size: 32px; font-weight: 900; line-height: 1.3; margin-bottom: 32px; }
+  .about-h2 { font-family: 'Chakra Petch', sans-serif; font-size: 32px; font-weight: 700; line-height: 1.3; margin-bottom: 32px; }
   .about-h2 span { color: var(--rust); }
   .about-body { font-size: 15px; color: var(--muted); line-height: 2; margin-bottom: 24px; }
   .about-body strong { color: var(--text); font-weight: 700; }
 
   .quote-section { padding: 100px 48px; border-bottom: 1px solid #1a1a1a; background: var(--bg2); }
-  .quote-text { font-family: 'Orbitron', monospace; font-size: 22px; font-weight: 700; max-width: 800px; margin: 0 auto; line-height: 1.5; text-align: center; }
+  .quote-text { font-family: 'Chakra Petch', sans-serif; font-size: 22px; font-weight: 700; max-width: 800px; margin: 0 auto; line-height: 1.5; text-align: center; }
   .quote-text em { color: var(--rust); font-style: normal; }
   .quote-attr { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); text-align: center; margin-top: 32px; letter-spacing: 0.1em; }
 
@@ -341,16 +360,16 @@ const ogImage = new URL('/og-image.png', Astro.site).href;
   .pending { color: var(--dim); }
 
   .cta-final { padding: 120px 48px; text-align: center; }
-  .cta-h2 { font-family: 'Orbitron', monospace; font-size: clamp(34px, 7vw, 52px); font-weight: 900; line-height: 1.25; margin-bottom: 24px; }
+  .cta-h2 { font-family: 'Chakra Petch', sans-serif; font-size: clamp(34px, 7vw, 52px); font-weight: 700; line-height: 1.25; margin-bottom: 24px; }
   .cta-h2 span { color: var(--rust); }
   .cta-body { font-size: 16px; color: var(--muted); max-width: 480px; margin: 0 auto 48px; line-height: 1.8; }
   .email-row { display: flex; max-width: 440px; margin: 0 auto; }
-  .email-input { flex: 1; background: var(--bg3); border: 1px solid #222; border-right: none; padding: 16px 20px; color: var(--text); font-family: 'Syne', sans-serif; font-size: 14px; outline: none; }
-  .email-btn { background: var(--rust); color: #fff; border: none; padding: 16px 28px; font-family: 'Orbitron', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; line-height: 1.4; overflow: visible; cursor: pointer; }
+  .email-input { flex: 1; background: var(--bg3); border: 1px solid #222; border-right: none; padding: 16px 20px; color: var(--text); font-family: 'Inter', sans-serif; font-size: 14px; outline: none; }
+  .email-btn { background: var(--rust); color: #fff; border: none; padding: 16px 28px; font-family: 'Chakra Petch', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; line-height: 1.4; overflow: visible; cursor: pointer; }
 
   footer { padding: 28px 48px; border-top: 1px solid #1a1a1a; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
   .footer-logo { display: flex; align-items: center; gap: 10px; cursor: pointer; justify-self: start; }
-  .footer-logo-text { font-family: 'Orbitron', monospace; font-size: 14px; font-weight: 900; line-height: 1.2; color: #EFEFEF; }
+  .footer-logo-text { font-family: 'Chakra Petch', sans-serif; font-size: 14px; font-weight: 700; line-height: 1.2; color: #EFEFEF; }
   .footer-copy { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--dim); justify-self: end; }
   .footer-contact { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); text-decoration: none; letter-spacing: 0.04em; justify-self: center; transition: color 0.2s ease; }
   .footer-contact:hover { color: var(--rust); }
@@ -411,6 +430,7 @@ const ogImage = new URL('/og-image.png', Astro.site).href;
   @media (max-width: 900px) {
     .hero { padding: 0 24px 56px; min-height: 480px; }
     .hero-3d { left: 0; opacity: 0.5; }
+    .hero-content { max-width: 100%; }
     .hero-tagline { font-size: 18px; }
     .manifesto, .about-section { grid-template-columns: 1fr; gap: 44px; }
     .pillars-grid { grid-template-columns: 1fr; gap: 40px; }

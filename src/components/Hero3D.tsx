@@ -45,7 +45,7 @@ export default function Hero3D() {
     rimLight.position.set(0, -5, -5);
     scene.add(rimLight);
 
-    // Material — metallic dark
+    // Material: metallic dark
     const createMaterial = (roughness: number, metalness: number, color?: number) =>
       new THREE.MeshStandardMaterial({
         color: color || 0x1a1a1a,

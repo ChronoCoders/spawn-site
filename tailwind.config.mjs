@@ -14,9 +14,9 @@ export default {
         dim: '#333333',
       },
       fontFamily: {
-        display: ['Orbitron', 'monospace'],
+        display: ['Chakra Petch', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
-        body: ['Syne', 'sans-serif'],
+        body: ['Inter', 'sans-serif'],
       },
     },
   },
